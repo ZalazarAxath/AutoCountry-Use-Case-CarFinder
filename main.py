@@ -10,8 +10,8 @@ class CarFinder:
             print(vehicle)
 
     def search_vehicle(self, vehicle_name):
-        vehicle_name = vehicle_name.lower()  # Convert input to lowercase
-        if vehicle_name in [v.lower() for v in self.AllowedVehiclesList]:  # Convert names in allowed vehicles list to lowercase for comparison
+        vehicle_name = vehicle_name.lower()  # convertInput type lowercase
+        if vehicle_name in [v.lower() for v in self.AllowedVehiclesList]:
             print(f"{vehicle_name.capitalize()} is an authorized vehicle")
         else:
             print(f"{vehicle_name.capitalize()} is not an authorized vehicle. If you received this in error, please check the spelling and try again.")
