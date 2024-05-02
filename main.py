@@ -57,7 +57,7 @@ class CarFinder:
   # displayText Choice Menu
     def display_menu(self):
         print("********************************")
-        print("AutoCountry Vehicle Finder v0.4")
+        print("AutoCountry Vehicle Finder v0.5")
         print("********************************")
         print("Please enter the following number below from the following menu:\n")
         print("1. PRINT all Authorized Vehicles")
