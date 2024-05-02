@@ -4,13 +4,18 @@ class CarFinder:
     def __init__(self, file_path):
         self.file_path = file_path
         self.AllowedVehiclesList = self.load_AllowedVehiclesList()
-# readFile AllowedVehiclesList.txt
+  # readFile AllowedVehiclesList.txt
     def load_AllowedVehiclesList(self):
         try:
             with open(self.file_path, 'r') as file:
                 return [line.strip() for line in file.readlines()]
         except FileNotFoundError:
-            return []
+            print(f"No file found at {self.file_path}. Creating a new one with initial vehicles.")
+            initial_vehicles = ['Ford F-150', 'Chevrolet Silverado', 'Tesla CyberTruck', 'Toyota Tundra', 'Nissan Titan']
+            with open(self.file_path, 'w') as file:
+                for vehicle in initial_vehicles:
+                    file.write(vehicle + '\n')
+            return initial_vehicles
 
     def save_AllowedVehiclesList(self):
         with open(self.file_path, 'w') as file:
@@ -64,6 +69,7 @@ class CarFinder:
                 self.add_vehicle(vehicle_name)
             elif choice == '4':
                 print("Thank you for using the AutoCountry Vehicle Finder, goodbye!")
+                self.save_AllowedVehiclesList()  # Save changes before exiting
                 sys.exit()
             else:
                 print("Invalid choice. Please enter a valid option.\n")
