@@ -1,8 +1,21 @@
 import sys
 
 class CarFinder:
-    def __init__(self, AllowedVehiclesList):
-        self.AllowedVehiclesList = AllowedVehiclesList
+    def __init__(self, file_path):
+        self.file_path = file_path
+        self.AllowedVehiclesList = self.load_AllowedVehiclesList()
+# readFile AllowedVehiclesList.txt
+    def load_AllowedVehiclesList(self):
+        try:
+            with open(self.file_path, 'r') as file:
+                return [line.strip() for line in file.readlines()]
+        except FileNotFoundError:
+            return []
+
+    def save_AllowedVehiclesList(self):
+        with open(self.file_path, 'w') as file:
+            for vehicle in self.AllowedVehiclesList:
+                file.write(vehicle + '\n')
 
     def print_AllowedVehiclesList(self):
         print("The AutoCountry sales manager has authorized the purchase and selling of the following vehicles:")
@@ -18,8 +31,13 @@ class CarFinder:
             print(f"{vehicle_name.capitalize()} is not an authorized vehicle. If you received this in error, please check the spelling and try again.")
 
     def add_vehicle(self, vehicle_name):
-        self.AllowedVehiclesList.append(vehicle_name)
-        print(f'You have added "{vehicle_name}" as an authorized vehicle')
+        vehicle_name = vehicle_name.strip()
+        if vehicle_name not in self.AllowedVehiclesList:
+            self.AllowedVehiclesList.append(vehicle_name)
+            print(f'You have added "{vehicle_name}" as an authorized vehicle')
+            self.save_AllowedVehiclesList()
+        else:
+            print(f'"{vehicle_name}" is already an authorized vehicle')
   # displayText Choice Menu
     def display_menu(self):
         print("********************************")
@@ -51,6 +69,6 @@ class CarFinder:
                 print("Invalid choice. Please enter a valid option.\n")
 
 if __name__ == "__main__":
-    AllowedVehiclesList = ['Ford F-150', 'Chevrolet Silverado', 'Tesla CyberTruck', 'Toyota Tundra', 'Nissan Titan']
-    car_finder = CarFinder(AllowedVehiclesList)
+    file_path = "AllowedVehiclesList.txt"
+    car_finder = CarFinder(file_path)
     car_finder.run()
